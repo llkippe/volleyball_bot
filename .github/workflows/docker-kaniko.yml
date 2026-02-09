@@ -33,4 +33,4 @@ jobs:
             gcr.io/kaniko-project/executor:latest \
             --dockerfile=/workspace/Dockerfile \
             --context=/workspace \
-            --destination=ghcr.io/${{ github.repository_owner }}/volleyball-bot:latest
+            --destination=ghcr.io/${{ github.repository_owner }}/volleyball_bot:latest
