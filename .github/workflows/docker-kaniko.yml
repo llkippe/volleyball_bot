@@ -10,22 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
+      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Set up Kaniko
-      - name: Set up Kaniko
-        uses: gcr.io/kaniko-project/executor:latest@sha256:latest
+      # 2️⃣ Set up Docker (needed to run Kaniko)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      # 3. Log in to GitHub Container Registry
-      - name: Authenticate to GHCR
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      # 3️⃣ Authenticate to GitHub Container Registry
+      - name: Log in to GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      # 4. Build and push image
-      - name: Build and push Docker image
+      # 4️⃣ Build and push Docker image with Kaniko
+      - name: Build and Push with Kaniko
         run: |
           docker run \
+            --rm \
             -v ${{ github.workspace }}:/workspace \
             -v /kaniko/.docker:/kaniko/.docker \
             gcr.io/kaniko-project/executor:latest \
