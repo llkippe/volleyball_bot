@@ -25,7 +25,10 @@ jobs:
       # 4. Build and push image
       - name: Build and push Docker image
         run: |
-          /kaniko/executor \
-          --dockerfile=Dockerfile \
-          --context=${{ github.workspace }} \
-          --destination=ghcr.io/${{ github.repository_owner }}/volleyball-bot:latest
+          docker run \
+            -v ${{ github.workspace }}:/workspace \
+            -v /kaniko/.docker:/kaniko/.docker \
+            gcr.io/kaniko-project/executor:latest \
+            --dockerfile=/workspace/Dockerfile \
+            --context=/workspace \
+            --destination=ghcr.io/${{ github.repository_owner }}/volleyball-bot:latest
