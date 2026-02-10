@@ -25,3 +25,4 @@ app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("poll", poll))
 
 app.run_polling()
+#mal tgucken
