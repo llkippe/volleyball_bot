@@ -108,7 +108,7 @@ async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 def main() -> None:
     app = ApplicationBuilder().token(os.environ["BOT_TOKEN"]).build()
 
-    app.add_handler(CommandHandler("umfrage_erstellen", start))
+    app.add_handler(CommandHandler("umfrage", start))
     app.add_handler(CallbackQueryHandler(starttag_auswahl, pattern='^starttag_'))
     app.add_handler(CallbackQueryHandler(endtag_auswahl, pattern='^endtag_'))
     app.add_handler(CallbackQueryHandler(zeitslots_auswählen, pattern='^zeit_'))
